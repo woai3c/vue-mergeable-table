@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo</title>
+</head>
+<body>
+    <div id="app">
+        <mergeable-table :options="options" @click="handleClick"></mergeable-table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="../dist/mergeable-table.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    options: {
+                        cols: 6,
+                        rows: 7,
+                        merge: [
+                            {
+                                row: 0,
+                                col: 0,
+                                rowspan: 2,
+                                colspan: 2,
+                            },
+                            {
+                                row: 0,
+                                col: 2,
+                                rowspan: 2,
+                                colspan: 2,
+                            },
+                            {
+                                row: 2,
+                                col: 2,
+                                colspan: 3,
+                            },
+                            {
+                                row: 0,
+                                col: 5,
+                                rowspan: 2,
+                            },
+                            {
+                                row: 0,
+                                col: 4,
+                                rowspan: 2,
+                            },
+                            {
+                                row: 3,
+                                col: 0,
+                                colspan: 2,
+                            },
+                            {
+                                row: 3,
+                                col: 2,
+                                rowspan: 3,
+                                colspan: 3,
+                            },
+                            {
+                                row: 6,
+                                col: 0,
+                                colspan: 2,
+                            },
+                            {
+                                row: 4,
+                                col: 0,
+                                rowspan: 2,
+                            },
+                        ],
+                        data: [
+                            { content: '测试1', id: 10, a: 100, b: 100 },
+                            { content: '测试2' },
+                            { content: '测试3' },
+                            { content: '测试4' },
+                            { content: '测试5' },
+                            { content: '测试6' },
+                            { content: '测试7' },
+                            { content: '测试8' },
+                            { content: '测试9' },
+                            { content: '测试10' },
+                            { content: '测试11' },
+                            { content: '测试12' },
+                            { content: '测试13' },
+                            { content: '测试14' },
+                            { content: '测试15' },
+                            { content: '测试16' },
+                            { content: '测试17' },
+                            { content: '测试18' },
+                            { content: '测试19' },
+                            { content: '测试20' },
+                            { content: '测试21' },
+                            { content: '测试22' },
+                            { content: '测试23' },
+                            { content: '测试24' },
+                            { content: '测试25' },
+                            { content: '测试26' },
+                            { content: '测试27' },
+                            { content: '测试28' },
+                            { content: '测试29' },
+                            { content: '测试30' },
+                        ],
+                    },
+                }
+            },
+            methods: {
+                // 当前点击的数据 数据索引 行数据 行索引 列索引
+                handleClick(data, index, rowData, row, col) {
+                    console.log(data)
+                    console.log(index)
+                    console.log(rowData)
+                    console.log(row)
+                    console.log(col)
+                },
+            }
+        })
+    </script>
+</body>
+</html>

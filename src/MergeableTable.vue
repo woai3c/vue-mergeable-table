@@ -1,0 +1,275 @@
+<script>
+export default { 
+    name: 'MergeableTable',
+    props: {
+        options: {
+            type: Object,
+            default: () => {},
+        },
+        highlight: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    data() {
+        return {
+            cols: 0,
+            rows: 0,
+            listData: [],
+            tableData: [],
+            merge: [],
+        }
+    },
+    created() {
+        this.cols = this.options && this.options.cols
+        this.rows = this.options && this.options.rows
+        this.listData = this.options && this.options.data
+        this.merge = this.options && this.options.merge
+        this.tableData = this.createTableData()
+        this.addTableAttrs()
+        this.mergeData()
+    },
+    methods: {
+        createTableData() {
+            const { rows, cols } = this
+            const result = []
+            for (let row = 0; row < rows; row++) {
+                const arr = []
+                for (let col = 0; col < cols; col++) {
+                    arr.push({})
+                }
+
+                result.push(arr)
+            }
+
+            return result
+        },
+
+        addTableAttrs() {
+            const { rows, cols, merge, tableData } = this
+            for (let i = 0, len = merge.length; i < len; i++) {
+                const mergeOption = merge[i]
+                const rowStart = mergeOption.row
+                const colStart = mergeOption.col
+                
+                for (let row = 0; row < rows; row++) {
+                    for (let col = 0; col < cols; col++) {
+                        if (row == rowStart && col == colStart) {
+                            tableData[row][col].colspan = mergeOption.colspan? mergeOption.colspan : 1
+                            tableData[row][col].rowspan = mergeOption.rowspan? mergeOption.rowspan : 1
+                        }
+                    }
+                }
+            }
+        },
+        
+        replaceData() {
+            const data = this.tableData
+            const listData = this.listData
+            let index = 0
+            for (let i = 0, len = data.length; i < len; i++) {
+                const arr = data[i]
+                for (let j = 0, l = arr.length; j < l; j++) {
+                    const item = listData[index]
+                    if (!item) break
+                    if (arr[j].rowspan) item.rowspan = arr[j].rowspan
+                    if (arr[j].colspan) item.colspan = arr[j].colspan
+                    item.__index__ = index++
+                    arr[j] = item
+                }
+            }
+
+            return data
+        },
+
+        mergeData() {
+            const data = this.tableData
+            for (let i = 0, len = data.length; i < len; i++) {
+                let arr = data[i]
+                if (!arr) continue
+                let j = 0
+                
+                while (j < arr.length) {
+                    if (arr[j].rowspan && arr[j].colspan) {
+                        this.deleteRowAndCol(data, i, arr[j].rowspan + i - 1, j, arr[j].colspan)
+                        arr = data[i]
+                    }
+                    
+                    j++
+                }
+            }
+        },
+            
+        deleteRowAndCol(data, rowStart, rowEnd, colStart, colspan) {
+            const start = rowStart
+            while (rowStart <= rowEnd) {
+                let span = colspan
+                if (start === rowStart) {
+                    span = colspan - 1
+                }
+                
+                if (!span) {
+                    rowStart++
+                    continue
+                }
+
+                const arr = data[rowStart]
+                const arr2 = []
+                let len = arr.length
+                // 大于 0 的情况下要从头开始
+                if (colStart >= len) {
+                    let i = 0
+                    for (; i < len; i++) {
+                        if (!span) {
+                            arr2.push(arr[i])
+                            continue
+                        }
+                    
+                        if (arr[i].rowspan && arr[i].colspan) {
+                            arr2.push(arr[i])
+                        } else {
+                            span--
+                        }
+                    }
+                } else {
+                    let i = colStart
+                    let isFirst = true
+                    colStart--
+
+                    for (; i != colStart; i = ++i % len) {
+                        if (!span) {
+                            if (i < colStart) {
+                                arr2.unshift(arr[i])
+                            } else {
+                                arr2.push(arr[i])
+                            }
+
+                            continue
+                        }
+                    
+                        if (arr[i].rowspan && arr[i].colspan) {
+                            if (i < colStart) {
+                                arr2.unshift(arr[i])
+                            } else {
+                                arr2.push(arr[i])
+                            }
+                        } else {
+                            span--
+                        }
+                    
+                        if (isFirst) {
+                            colStart++
+                            isFirst = false
+                        }
+                    }
+                }
+
+                data[rowStart] = arr2
+                rowStart++
+            }
+        },
+
+        generateTable(h) {
+            const data = this.replaceData()
+            const result = []
+            let index = 0
+            for (let i = 0, len = data.length; i < len; i++) {
+                const tdData = data[i]
+                const tds = []
+                for (let j = 0, l = tdData.length; j < l; j++) {
+                    const td = tdData[j]
+                    const attrs = {}
+                    if (td.colspan) {
+                        attrs.colspan = td.colspan
+                    }
+
+                    if (td.rowspan) {
+                        attrs.rowspan = td.rowspan
+                    }
+
+                    attrs['data-index'] = td.__index__
+                    attrs['data-col'] = j
+                    attrs.class = 'mergeable-td'
+
+                    tds.push(
+                        h('td', { attrs }, td.content)
+                    )
+                }
+
+                result.push(h('tr', {
+                    attrs: {
+                        class: 'mergeable-tr',
+                        'data-index': index++,
+                    },
+                    on: {
+                        click: (e) => {
+                            const target = e.target
+                            if (target.nodeName == 'TD') {
+                                const index = target.dataset.index
+                                this.$emit(
+                                    'click',
+                                    this.listData[index],
+                                    index,
+                                    this.getTrData(target.parentNode),
+                                    target.parentNode.dataset.index,
+                                    target.dataset.col,
+                                )
+                            }
+                        },
+                    },
+                }, tds))
+            }
+            
+            return result
+        },
+
+        getTrData(tr) {
+            const tds = tr.children
+            const result = []
+            for (let i = 0, len = tds.length; i < len; i++) {
+                result.push(this.listData[tds[i].dataset.index])
+            }
+
+            return result
+        },
+    },
+
+    render(h) {
+        let className = 'mergeable-table'
+        if (this.highlight) {
+            className += ' highlight'
+        }
+
+        return h(
+            'table',
+            {
+                attrs: {
+                    class: className,
+                },
+            },
+            this.generateTable(h)
+        )
+    },
+}
+</script>
+
+<style>
+.mergeable-table {
+    border-collapse: collapse;
+    box-sizing: border-box;
+    color: #606266;
+    font-size: 14px;
+}
+.mergeable-table td {
+    border: 1px solid #ebeef5;
+    width: 44px;
+    box-sizing: border-box;
+}
+.mergeable-table tr {
+    height: 44px;
+    box-sizing: border-box;
+}
+.mergeable-table.highlight td:hover {
+    background-color: #f5f7fa;
+}
+</style>
