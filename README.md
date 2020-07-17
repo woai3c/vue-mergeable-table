@@ -9,23 +9,11 @@
 options: {
     cols: 6, // 要生成的表格列数
     rows: 7, // 要生成的表格行数 这个表是 7 * 6
-    merge: [ // 多个合并规则
-        {
-            row: 0, // 起始行
-            col: 0, // 起始列
-            rowspan: 2, // 占2行，默认为 1 ，为 1 时可不填
-            colspan: 2, // 占2列
-        },
-        {
-            row: 0,
-            col: 2,
-            rowspan: 2,
-            colspan: 2,
-        },
-    ],
     data: [ // 表格数据，生成表格后将数据按顺序一一填充到表格
         { content: '测试1', id: 10, a: 100, b: 100 }, // content 字段为表格的内容
-        { content: '测试2' },
+        // 需要合并的数据需要填入一个 merge 对象
+        // row col 为起始行列，rowspan 和 colspan 为合并的行数，值默认为 1，为 1 时可以不填
+        { content: '测试2', merge: { row: 3, col: 0, rowspan: 3 } },
         { content: '测试3' },
     ],
 },
@@ -33,10 +21,9 @@ options: {
 ### 事件
 组件可监听 `click` 事件，回调函数事件参数格式：
 ```js
-// 当前点击的 td 的数据，数据索引，行数据，行索引，列索引
-handleClick(data, index, rowData, row, col) {
+// 当前点击的数据 行数据 行索引 列索引，返回的行数据 行索引 列索引均以合并后的表格为准
+handleClick(data, rowData, row, col) {
     console.log(data)
-    console.log(index)
     console.log(rowData)
     console.log(row)
     console.log(col)
