@@ -20,56 +20,6 @@
                     options: {
                         cols: 6,
                         rows: 7,
-                        merge: [
-                            {
-                                row: 0,
-                                col: 0,
-                                rowspan: 2,
-                                colspan: 2,
-                            },
-                            {
-                                row: 0,
-                                col: 2,
-                                rowspan: 2,
-                                colspan: 2,
-                            },
-                            {
-                                row: 2,
-                                col: 2,
-                                colspan: 3,
-                            },
-                            {
-                                row: 0,
-                                col: 5,
-                                rowspan: 2,
-                            },
-                            {
-                                row: 0,
-                                col: 4,
-                                rowspan: 2,
-                            },
-                            {
-                                row: 3,
-                                col: 0,
-                                colspan: 2,
-                            },
-                            {
-                                row: 3,
-                                col: 2,
-                                rowspan: 3,
-                                colspan: 3,
-                            },
-                            {
-                                row: 6,
-                                col: 0,
-                                colspan: 2,
-                            },
-                            {
-                                row: 4,
-                                col: 0,
-                                rowspan: 2,
-                            },
-                        ],
                         data: [
                             { content: '测试1', id: 10, a: 100, b: 100 },
                             { content: '测试2' },
@@ -82,34 +32,53 @@
                             { content: '测试9' },
                             { content: '测试10' },
                             { content: '测试11' },
+                            { content: '测试777', merge: { row: 3, col: 0, rowspan: 3 } },
                             { content: '测试12' },
                             { content: '测试13' },
                             { content: '测试14' },
                             { content: '测试15' },
                             { content: '测试16' },
+                            { content: '测试100', merge: { row: 3, col: 2, rowspan: 2, colspan: 2 } },
                             { content: '测试17' },
                             { content: '测试18' },
                             { content: '测试19' },
                             { content: '测试20' },
+                            { content: '测试200', merge: { row: 0, col: 0, rowspan: 3, colspan: 3 } },
                             { content: '测试21' },
                             { content: '测试22' },
                             { content: '测试23' },
                             { content: '测试24' },
+                            { content: '测试500', merge: { row: 6, col: 2, colspan: 4 } },
                             { content: '测试25' },
                             { content: '测试26' },
                             { content: '测试27' },
                             { content: '测试28' },
                             { content: '测试29' },
+                            { content: '测试400', merge: { row: 0, col: 4, colspan: 2 } },
                             { content: '测试30' },
+                            { content: '测试31' },
+                            { content: '测试32' },
+                            { content: '测试33' },
+                            { content: '测试34' },
+                            { content: '测试600', merge: { row: 1, col: 4, rowspan: 2 } },
+                            { content: '测试35' },
+                            { content: '测试36' },
+                            { content: '测试37' },
+                            { content: '测试38' },
+                            { content: '测试39' },
+                            { content: '测试40' },
+                            { content: '测试41' },
+                            { content: '测试42' },
+                            { content: '测试43' },
+                            { content: '测试44' },
                         ],
                     },
                 }
             },
             methods: {
-                // 当前点击的数据 数据索引 行数据 行索引 列索引
-                handleClick(data, index, rowData, row, col) {
+                // 当前点击的数据 行数据 行索引 列索引
+                handleClick(data, rowData, row, col) {
                     console.log(data)
-                    console.log(index)
                     console.log(rowData)
                     console.log(row)
                     console.log(col)
