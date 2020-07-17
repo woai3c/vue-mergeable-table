@@ -38,9 +38,9 @@ module.exports = {
         ]
     },
     output: {
-        filename: 'mergeable-table.js',
+        filename: 'vue-mergeable-table.js',
         path: path.resolve(__dirname, 'dist'),
-        library: 'MergeableTable',
+        library: 'VueMergeableTable',
         libraryTarget: 'umd'
     }
 }

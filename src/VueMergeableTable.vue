@@ -1,6 +1,6 @@
 <script>
 export default { 
-    name: 'MergeableTable',
+    name: 'VueMergeableTable',
     props: {
         options: {
             type: Object,
@@ -235,7 +235,7 @@ export default {
     },
 
     render(h) {
-        let className = 'mergeable-table'
+        let className = 'vue-mergeable-table'
         if (this.highlight) {
             className += ' highlight'
         }
@@ -254,22 +254,22 @@ export default {
 </script>
 
 <style>
-.mergeable-table {
+.vue-mergeable-table {
     border-collapse: collapse;
     box-sizing: border-box;
     color: #606266;
     font-size: 14px;
 }
-.mergeable-table td {
+.vue-mergeable-table td {
     border: 1px solid #ebeef5;
     width: 44px;
     box-sizing: border-box;
 }
-.mergeable-table tr {
+.vue-mergeable-table tr {
     height: 44px;
     box-sizing: border-box;
 }
-.mergeable-table.highlight td:hover {
+.vue-mergeable-table.highlight td:hover {
     background-color: #f5f7fa;
 }
 </style>

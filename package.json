@@ -1,25 +1,25 @@
 {
-  "name": "mergeable-table",
-  "version": "1.0.0",
+  "name": "vue-mergeable-table",
+  "version": "1.0.1",
   "description": "Vue 动态生成的可跨行跨列的表格",
-  "main": "dist/mergeable-table.js",
+  "main": "dist/vue-mergeable-table.js",
   "scripts": {
     "build": "webpack --config webpack.config.js --mode production"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/woai3c/mergeable-table.git"
+    "url": "git+https://github.com/woai3c/vue-mergeable-table.git"
   },
   "keywords": [
-    "mergeable-table",
+    "vue-mergeable-table",
     "vue"
   ],
   "author": "bin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/woai3c/mergeable-table/issues"
+    "url": "https://github.com/woai3c/vue-mergeable-table/issues"
   },
-  "homepage": "https://github.com/woai3c/mergeable-table#readme",
+  "homepage": "https://github.com/woai3c/vue-mergeable-table#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",

@@ -1,7 +1,7 @@
-import MergeableTable from './MergeableTable.vue'
+import VueMergeableTable from './VueMergeableTable.vue'
 
 const install = function(Vue, opts = {}) {
-    Vue.component('MergeableTable', MergeableTable)
+    Vue.component('VueMergeableTable', VueMergeableTable)
 }
 
 const API = {
