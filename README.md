@@ -1,5 +1,3 @@
-# vue-mergeable-table 
-
 ## 简介
 可以根据数据动态生成的可合并行列的表格。
 
@@ -42,6 +40,20 @@ handleClick(data, index, rowData, row, col) {
     console.log(col)
 },
 ```
+### [在线 DEMO](http://jsrun.net/xmvKp/edit)
+### 注意事项
+假设你创建了一个 `4*4` 的表格，如下图所示。
+
+![](doc/1.png)
+
+现在每一行你都合并了 3 列，这时表格会发生崩溃现象。
+
+![](doc/2.png)
+
+这是表格自身的问题，和组件无关。要解决此问题，只需再加一行没有合并的表格即可。
+
+![](doc/3.png)
+
 ## 使用
 ### 在单文件组件中引用
 ```
