@@ -79,7 +79,7 @@ export default {
                         if (item === undefined) break
                     }
 
-                    arr[j] = item
+                    arr[j] = item === undefined? {} : item
                     index++
                 }
             }
