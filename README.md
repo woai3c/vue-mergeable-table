@@ -13,6 +13,7 @@ options: {
         { content: '测试1', id: 10, a: 100, b: 100 }, // content 字段为表格的内容
         // 需要合并的数据需要填入一个 merge 对象
         // row col 为起始行列，rowspan 和 colspan 为合并的行数，值默认为 1，为 1 时可以不填
+        // 这代表这个数据要放在 row 为 3，col 为 1 的单元格上，并且占 3 行 1列
         { content: '测试2', merge: { row: 3, col: 0, rowspan: 3 } },
         { content: '测试3' },
     ],
