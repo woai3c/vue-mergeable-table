@@ -194,7 +194,7 @@ export default {
                     }
 
                     attrs['data-col'] = j
-                    attrs.class = 'mergeable-td'
+                    attrs.class = td.class? td.class + ' mergeable-td' : 'mergeable-td'
                     tds.push(
                         h('td', { attrs }, td.content)
                     )
