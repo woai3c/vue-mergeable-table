@@ -11,6 +11,11 @@ export default {
             default: false,
         },
     },
+    watch: {
+        options(a, b) {
+            this.init()
+        }
+    },
     data() {
         return {
             cols: 0,
@@ -20,14 +25,18 @@ export default {
         }
     },
     created() {
-        this.cols = this.options && this.options.cols
-        this.rows = this.options && this.options.rows
-        this.listData = this.options && this.options.data
-        this.tableData = this.createTableData()
-        this.sort()
-        this.mergeData()
+        this.init()
     },
     methods: {
+        init() {
+            this.cols = this.options && this.options.cols
+            this.rows = this.options && this.options.rows
+            this.listData = this.options && this.options.data
+            this.tableData = this.createTableData()
+            this.sort()
+            this.mergeData()
+        },
+
         createTableData() {
             const { rows, cols } = this
             const result = []

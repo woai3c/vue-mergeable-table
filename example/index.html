@@ -15,6 +15,8 @@
 <body>
     <div id="app">
         <vue-mergeable-table :options="options" @click="handleClick"></vue-mergeable-table>
+
+        <div><button @click="changeData" style="margin-top: 10px;">点击切换数据</button></div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="../dist/vue-mergeable-table.js"></script>
@@ -65,6 +67,25 @@
                     console.log(row)
                     console.log(col)
                 },
+
+                changeData() {
+                    this.options = {
+                        cols: 5,
+                        rows: 5,
+                        data: [
+                            { content: '测试2' },
+                            { content: '测试3' },
+                            { content: '测试4' },
+                            { content: '测试5' },
+                            { content: '测试6' },
+                            { content: '测试2' },
+                            { content: '测试3' },
+                            { content: '测试4' },
+                            { content: '测试5' },
+                            { content: '测试6' },
+                        ],
+                    }
+                }
             }
         })
     </script>
