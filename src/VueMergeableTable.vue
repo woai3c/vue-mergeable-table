@@ -71,6 +71,7 @@ export default {
                             
                             tableData[row][col].colspan = mergeOption.colspan? mergeOption.colspan : 1
                             tableData[row][col].rowspan = mergeOption.rowspan? mergeOption.rowspan : 1
+                            if (mergeOption.class) tableData[row][col].class = mergeOption.class
                         }
                     }
                 }
