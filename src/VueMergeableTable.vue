@@ -12,7 +12,7 @@ export default {
         },
     },
     watch: {
-        options(a, b) {
+        options() {
             this.init()
         }
     },
@@ -29,9 +29,10 @@ export default {
     },
     methods: {
         init() {
-            this.cols = this.options && this.options.cols
-            this.rows = this.options && this.options.rows
-            this.listData = this.options && this.options.data
+            if (!Object.keys(this.options).length) return
+            this.cols = this.options.cols
+            this.rows = this.options.rows
+            this.listData = this.options.data
             this.tableData = this.createTableData()
             this.sort()
             this.mergeData()
@@ -54,6 +55,8 @@ export default {
 
         sort() {
             const { rows, cols, tableData, listData } = this
+            if (!listData) return
+
             for (let i = 0, len = listData.length; i < len; i++) {
                 const mergeOption = listData[i].merge
                 if (!mergeOption) continue
@@ -231,7 +234,7 @@ export default {
                     },
                 }, tds))
             }
-            
+
             return result
         },
 
