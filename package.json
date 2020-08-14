@@ -1,6 +1,6 @@
 {
   "name": "vue-mergeable-table",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Vue 动态生成的可跨行跨列的表格",
   "main": "dist/vue-mergeable-table.js",
   "scripts": {
