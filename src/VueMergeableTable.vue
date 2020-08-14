@@ -104,7 +104,15 @@ export default {
                 let j = 0
                 while (j < arr.length) {
                     if (arr[j].rowspan && arr[j].colspan) {
-                        this.deleteRowAndCol(data, i, arr[j].rowspan + i - 1, j, arr[j].colspan)
+                        // 当前面有两个两列跨多行的表格合并时，在它后面的下一列，如果合并的话，也应该紧跟着。
+                        // 但现在是隔开一列。
+                        // 修复方法：如果现在要合并的列的上一列也是合并过的话，就使用上一列的索引来当 colStart
+                        let colStart = j
+                        if (j && arr[j - 1].rowspan && arr[j - 1].colspan) {
+                            colStart--
+                        }
+
+                        this.deleteRowAndCol(data, i, arr[j].rowspan + i - 1, colStart, arr[j].colspan)
                         arr = data[i]
                     }
                     
