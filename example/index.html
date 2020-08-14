@@ -6,17 +6,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>demo</title>
     <style>
+        #app {
+            display: flex;
+            flex-wrap: wrap;
+        }
         .test {
             background: lightblue;
             color: #fff;
+        }
+        table {
+            margin-bottom: 20px;
+            margin-left: 20px;
         }
     </style>
 </head>
 <body>
     <div id="app">
         <vue-mergeable-table :options="options" @click="handleClick"></vue-mergeable-table>
-
-        <div><button @click="changeData" style="margin-top: 10px;">点击切换数据</button></div>
+        <vue-mergeable-table :options="options2" @click="handleClick"></vue-mergeable-table>
+        <vue-mergeable-table :options="options3" @click="handleClick"></vue-mergeable-table>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="../dist/vue-mergeable-table.js"></script>
@@ -29,32 +37,36 @@
                         cols: 6,
                         rows: 7,
                         data: [
-                            { content: '测试1', id: 10, a: 100, b: 100, class: 'test' },
-                            { content: '测试2' },
-                            { content: '测试3' },
-                            { content: '测试4' },
-                            { content: '测试5' },
-                            { content: '测试6' },
-                            { content: '测试7' },
-                            { content: '测试8' },
-                            { content: '测试9' },
-                            { content: '测试10' },
-                            { content: '测试11' },
                             { content: '测试777', class: 'test', merge: { row: 3, col: 0, rowspan: 3 } },
-                            // { content: '测试12' },
-                            // { content: '测试13' },
-                            // { content: '测试14' },
-                            // { content: '测试15' },
-                            // { content: '测试16' },
-                            { content: '测试100', merge: { row: 3, col: 2, rowspan: 2, colspan: 2 } },
-                            // { content: '测试17' },
-                            // { content: '测试18' },
-                            // { content: '测试19' },
-                            // { content: '测试20' },
-                            { content: '测试200', merge: { row: 0, col: 0, rowspan: 3, colspan: 3 } },
-                            { content: '测试500', merge: { row: 6, col: 2, colspan: 4 } },
-                            { content: '测试400', merge: { row: 0, col: 4, colspan: 2 } },
-                            { content: '测试600', merge: { row: 1, col: 4, rowspan: 2 } },
+                            { content: '测试100', class: 'test', merge: { row: 3, col: 2, rowspan: 2, colspan: 2 } },
+                            { content: '测试200', class: 'test', merge: { row: 0, col: 0, rowspan: 3, colspan: 3 } },
+                            { content: '测试500', class: 'test', merge: { row: 6, col: 2, colspan: 4 } },
+                            { content: '测试400', class: 'test', merge: { row: 0, col: 4, colspan: 2 } },
+                            { content: '测试600', class: 'test', merge: { row: 1, col: 4, rowspan: 2 } },
+                        ],
+                    },
+                    options2: {
+                        cols: 6,
+                        rows: 7,
+                        data: [
+                            { content: '测试1', class: 'test', merge: { row: 0, col: 0, rowspan: 4, colspan: 2 }},
+                            { content: '测试3', class: 'test', merge: { row: 0, col: 2, rowspan: 4, colspan: 2 } },
+                            { content: '测试8', class: 'test', merge: { row: 2, col: 4, rowspan: 3, colspan: 1 } },
+                        ],
+                    },
+                    options3: {
+                        cols: 6,
+                        rows: 7,
+                        data: [
+                            { content: '测试1', class: 'test', merge: { row: 0, col: 0, rowspan: 1, colspan: 6 } },
+                            { content: '测试3', class: 'test', merge: { row: 1, col: 0, rowspan: 1, colspan: 4 } },
+                            { content: '测试8', class: 'test', merge: { row: 1, col: 4, rowspan: 1, colspan: 2 } },
+                            { content: '测试1', class: 'test', merge: { row: 2, col: 0, rowspan: 1, colspan: 2 } },
+                            { content: '测试1', class: 'test', merge: { row: 2, col: 2, rowspan: 2, colspan: 1 } },
+                            { content: '测试1', class: 'test', merge: { row: 3, col: 3, rowspan: 1, colspan: 2 } },
+                            { content: '测试3', class: 'test', merge: { row: 4, col: 0, rowspan: 1, colspan: 4 } },
+                            { content: '测试8', class: 'test', merge: { row: 4, col: 4, rowspan: 1, colspan: 2 } },
+                            { content: '测试1', class: 'test', merge: { row: 5, col: 0, rowspan: 1, colspan: 6 } },
                         ],
                     },
                 }
@@ -67,25 +79,6 @@
                     console.log(row)
                     console.log(col)
                 },
-
-                changeData() {
-                    this.options = {
-                        cols: 5,
-                        rows: 5,
-                        data: [
-                            { content: '测试2' },
-                            { content: '测试3' },
-                            { content: '测试4' },
-                            { content: '测试5' },
-                            { content: '测试6' },
-                            { content: '测试2' },
-                            { content: '测试3' },
-                            { content: '测试4' },
-                            { content: '测试5' },
-                            { content: '测试6' },
-                        ],
-                    }
-                }
             }
         })
     </script>
