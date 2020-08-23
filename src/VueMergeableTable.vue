@@ -106,18 +106,22 @@ export default {
                 let arr = data[i]
                 if (!arr) continue
                 let j = 0
+                let isContinuousMerge = false
+                let colStart
                 while (j < arr.length) {
                     if (arr[j].rowspan && arr[j].colspan) {
-                        // 当前面有两个两列跨多行的表格合并时，在它后面的下一列，如果合并的话，也应该紧跟着。
+                        // 当前面有连续多个跨多行的表格合并时，在它后面的下一列，如果合并的话，也应该紧跟着。
                         // 但现在是隔开一列。
-                        // 修复方法：如果现在要合并的列的上一列也是合并过的话，就使用上一列的索引来当 colStart
-                        let colStart = j
-                        if (j && arr[j - 1].rowspan && arr[j - 1].colspan) {
-                            colStart--
+                        // 修复方法：当有连续合并的时候，用第一次合并的列当索引
+                        if (!isContinuousMerge) {
+                            isContinuousMerge = true
+                            colStart = j
                         }
 
                         this.deleteRowAndCol(data, i, arr[j].rowspan + i - 1, colStart, arr[j].colspan)
                         arr = data[i]
+                    } else {
+                        isContinuousMerge = false
                     }
                     
                     j++
